@@ -15,9 +15,12 @@ RUN gradle clean build
 
 # Start with a base image containing Java runtime
 FROM openjdk:8-jdk-alpine
-VOLUME /tmp
+ENV ARTIFACT_NAME=billing_discovery_server-0.0.1-SNAPSHOT.jar
+ENV APP_HOME=/usr/app/
+
+WORKDIR $APP_HOME
+COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
+
 EXPOSE 8761
-ARG JAR_FILE=./build/libs/billing_discovery_server-0.0.1-SNAPSHOT.jar
-ADD ${JAR_FILE} billing_discovery_server.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/billing_discovery_server.jar"]
+ENTRYPOINT exec java -jar ${ARTIFACT_NAME}
 
