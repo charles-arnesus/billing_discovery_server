@@ -1,5 +1,5 @@
 # [Billing Discovery Server](https://github.com/charles-arnesus/billing_discovery_server)
-https://github.com/charles-arnesus/billing_service
+
 Purpose
 ---
 This will act as a discovery server for  
